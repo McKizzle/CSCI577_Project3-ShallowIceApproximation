@@ -3,4 +3,5 @@ ClintonMcKay_Homework1.zip
 *.pyc
 .DS_Store
 
+.ipynb_checkpoints
 
