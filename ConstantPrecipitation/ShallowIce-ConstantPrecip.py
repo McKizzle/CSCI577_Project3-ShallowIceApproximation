@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # <nbformat>3.0</nbformat>
 
@@ -35,8 +36,8 @@ beta = 8.7e-4       # 1/(Km)
 G = 42.0            # mW / M^2
 
 
-T = 250000     # Maximum number of years to run the simulation
-dt = 5000.0        # timestep in years. 
+T = 50000    # Maximum number of years to run the simulation
+dt = 500.0  # timestep in years. 
 
 # <codecell>
 
@@ -147,10 +148,16 @@ prm['newton_solver']['relaxation_parameter'] = 1.0
 
 # <codecell>
 
+file_H = dfn.File("../pvd/ShllwIce-CnstPrcp.pvd")
+
+Hout = dfn.Function(V)
+
 t = 0
 while t <= T:
     solver.solve()
     H_o.vector()[:] = H_n.vector()
+    Hout.vector()[:] = H_n.vector()
+    file_H << Hout
     print t
     dfn.plot(H_n)
     t += dt
